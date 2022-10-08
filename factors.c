@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "main.h"
 
 /**
  * factorize - function that prints out the
@@ -10,15 +9,14 @@
 
 void factorize(unsigned long long int n)
 {
-for (unsigned long long int i = 2; i <= n; i++)
-{
-if (n % i == 0)
-{
-printf("%llu=%llu*%llu\n", n, n / i, i);
-break;
-}
-}
-return;
+	for (unsigned long long int i = 2; i <= n; i++)
+	{
+		if (n % i == 0)
+		{
+			printf("%llu=%llu*%llu\n", n, n / i, i);
+			break;
+		}
+	}
 }
 
 /**
@@ -28,25 +26,23 @@ return;
  * Return: Always 0.
 */
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
-if (argc > 2 || argc < 2)
-    fprintf(stderr, "Usage: ./factors <file>\n");
+	if (argc > 2 || argc < 2)
+		fprintf(stderr, "Usage: ./factors <file>\n");
 
+	FILE *fac_file;
 
-FILE *fac_file;
+	fac_file = fopen(argv[1], "r");
 
-fac_file = fopen(argv[1], "r");
+	unsigned long long int finput = 0;
 
-unsigned long long int finput = 0;
+	while (fscanf(fac_file, "%llu", &finput) != EOF)
+	{
+		factorize(finput);
+	}
 
-while (fscanf(fac_file, "%llu", &finput) != EOF)
-{
-factorize(finput);
-}
+	fclose(fac_file);
 
-// factorize(1718944270642558716715);
-fclose(fac_file);
-
-return (0);
+	return (0);
 }
